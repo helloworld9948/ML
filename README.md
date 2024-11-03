@@ -6,7 +6,9 @@
 
 ---
 
-##[LabManual](https://github.com/helloworld9948/ML/LabManual.md)
+[LabManual](https://github.com/helloworld9948/ML/blob/main/LabManual.md)
+
+---
 
 
 ## List of Experiments
