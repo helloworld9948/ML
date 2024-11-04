@@ -1,8 +1,11 @@
+
 # Machine Learning Lab Manual
 
-## List of Experiments
+---
 
-### Experiment 1: Central Tendency Measures & Dispersion
+## Experiment 1: Central Tendency Measures & Dispersion
+
+### **Compute Central Tendency Measures: Mean, Median, Mode; Measure of Dispersion: Variance, Standard Deviation.**
 
 #### Mean
 - **Definition**: The mean value is the average value.
@@ -66,7 +69,11 @@ x = np.std(speed)
 print(x)  # Output: 37.84501153334721
 ```
 
-### Experiment 2: Study of Python Basic Libraries
+---
+
+## Experiment 2: Study of Python Basic Libraries
+
+### **Study Python Basic Libraries: Statistics, Math, Numpy, and Scipy.**
 
 #### Statistics Module
 - **Description**: Python's built-in module for calculating mathematical statistics.
@@ -113,7 +120,11 @@ from scipy import constants
 print(constants.pi)  # Output: 3.141592653589793
 ```
 
-### Experiment 3: Study of Python Libraries for ML Applications
+---
+
+## Experiment 3: Study of Python Libraries for ML Applications
+
+### **Study Python Libraries for ML applications: Pandas and Matplotlib.**
 
 #### Pandas
 - **Description**: Provides high-level data structures and tools for data analysis.
@@ -147,7 +158,11 @@ plt.legend()
 plt.show()
 ```
 
-### Experiment 4: Implement Simple Linear Regression
+---
+
+## Experiment 4: Simple Linear Regression
+
+### **Implement Simple Linear Regression in Python.**
 
 **Program**:
 ```python
@@ -183,7 +198,11 @@ if __name__ == "__main__":
     main()
 ```
 
-### Experiment 5: Multiple Linear Regression for House Price Prediction
+---
+
+## Experiment 5: Multiple Linear Regression for House Price Prediction
+
+### **Implement Multiple Linear Regression for House Price Prediction using sklearn.**
 
 **Installation Commands**:
 ```bash
@@ -258,8 +277,14 @@ plt.title('Actual vs Predicted House Prices')
 plt.plot([y.min(), y.max()], [y.min(), y.max()], color='red', linewidth=2)  # 45-degree line
 plt.show()
 ```
-## 6) Decision Tree Implementation and Parameter Tuning
-### Importing the Required Libraries
+
+---
+
+## Experiment 6: Decision Tree Implementation and Parameter Tuning
+
+### **Implement Decision Tree using sklearn and perform parameter tuning.**
+
+#### Importing the Required Libraries
 ```python
 import pandas as pd
 import numpy as np
@@ -270,7 +295,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score
 %matplotlib inline
 ```
-### Data Preprocessing
+
+#### Data Preprocessing
 ```python
 # Reading the CSV file
 df = pd.read_csv(r"/kaggle/input/heart-disease-prediction/heart_v2.csv")
@@ -282,7 +308,8 @@ df.info()
 # Data Shape
 df.shape
 ```
-### Data Visualization
+
+#### Data Visualization
 ```python
 plt.figure(figsize=(10,5))
 sns.violinplot(df['age'])
@@ -315,7 +342,8 @@ plt.figure(figsize=(10,5))
 sns.heatmap(df.corr(), annot=True, cmap="rainbow")
 plt.show()
 ```
-### Splitting the Dataset
+
+#### Splitting the Dataset
 ```python
 # Features and Target Variable
 X = df.drop('heart disease', axis=1)
@@ -323,7 +351,8 @@ y = df['heart disease']
 # Train-Test Split
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.6, random_state=50)
 ```
-### Training the Decision Tree
+
+#### Training the Decision Tree
 ```python
 # Fitting the decision tree
 dt = DecisionTreeClassifier(max_depth=3)
@@ -333,7 +362,8 @@ from sklearn import tree
 fig = plt.figure(figsize=(25,20))
 _ = tree.plot_tree(dt, feature_names=X.columns, class_names=['No Disease', "Disease"], filled=True)
 ```
-### Evaluating Model Performance
+
+#### Evaluating Model Performance
 ```python
 # Predictions
 y_train_pred = dt.predict(X_train)
@@ -346,7 +376,8 @@ print("Test Accuracy:", accuracy_score(y_test, y_test_pred))
 print("Test Confusion Matrix:")
 print(confusion_matrix(y_test, y_test_pred))
 ```
-### Parameter Tuning
+
+#### Parameter Tuning
 ```python
 # Control Tree Depth
 dt_depth = DecisionTreeClassifier(max_depth=3)
@@ -355,8 +386,14 @@ dt_depth.fit(X_train, y_train)
 dt_min_split = DecisionTreeClassifier(min_samples_split=20)
 dt_min_split.fit(X_train, y_train)
 ```
-## 7) K-Nearest Neighbors (KNN) Implementation
-### Importing the Required Libraries
+
+---
+
+## Experiment 7: K-Nearest Neighbors (KNN) Implementation
+
+### **Implement KNN using sklearn.**
+
+#### Importing the Required Libraries
 ```python
 import numpy as np
 import pandas as pd
@@ -365,7 +402,8 @@ from sklearn.neighbors import KNeighborsClassifier
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-### Reading the Dataset
+
+#### Reading the Dataset
 ```python
 # Load dataset
 df = pd.read_csv('data.csv')
@@ -374,7 +412,8 @@ X = df.drop(['diagnosis', 'Unnamed: 32', 'id'], axis=1)
 # Train-Test Split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 ```
-### Training the Model
+
+#### Training the Model
 ```python
 K = []
 training = []
@@ -390,12 +429,14 @@ for k in range(2, 21):
     test.append(test_score)
     scores[k] = [training_score, test_score]
 ```
-### Evaluating the Model
+
+#### Evaluating the Model
 ```python
 for keys, values in scores.items():
     print(keys, ':', values)
 ```
-### Plotting the Training and Test Scores
+
+#### Plotting the Training and Test Scores
 ```python
 sns.stripplot(K, training)
 plt.xlabel('Values of k')
@@ -409,11 +450,21 @@ plt.scatter(K, training, color='k')
 plt.scatter(K, test, color='g')
 plt.show()
 ```
-## 8) Logistic Regression Implementation
-### Importing the Required Libraries
+
+---
+
+## Experiment 8: Logistic Regression Implementation
+
+### **Implement Logistic Regression using sklearn.**
+
+#### Importing the Required Libraries
 ```python
 from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
+```
+
+#### Implementing Logistic Regression
+```python
 # Load dataset
 X, Y = load_iris(return_X_y=True)
 # Create Logistic Regression Model
@@ -428,12 +479,22 @@ print(Y_predict)
 score = logreg.score(X, Y)
 print(score)
 ```
-## 9) K-Means Clustering Implementation
-### Importing the Required Libraries
+
+---
+
+## Experiment 9: K-Means Clustering Implementation
+
+### **Implement K-Means Clustering.**
+
+#### Importing the Required Libraries
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+```
+
+#### Implementing K-Means Clustering
+```python
 # Generate random data
 np.random.seed(42)
 X = np.random.randn(100, 2)
@@ -454,6 +515,10 @@ plt.xlabel('Feature 1')
 plt.ylabel('Feature 2')
 plt.show()
 ```
+
+---
+
 ## Contributors
 
 - [TEJA](https://github.com/helloworld9948)
+
