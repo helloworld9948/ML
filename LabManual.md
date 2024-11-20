@@ -395,59 +395,44 @@ dt_min_split.fit(X_train, y_train)
 
 #### Importing the Required Libraries
 ```python
-import numpy as np
+from sklearn.datasets import load_breast_cancer
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
-```
 
-#### Reading the Dataset
-```python
-# Load dataset
-df = pd.read_csv('data.csv')
+data = load_breast_cancer()
+df = pd.DataFrame(data.data, columns=data.feature_names)
+df['diagnosis'] = data.target
+df.to_csv('breast_cancer.csv', index=False)
+print("Dataset saved as 'breast_cancer.csv'")
+
+df = pd.read_csv('breast_cancer.csv')
+X = df.drop('diagnosis', axis=1)
 y = df['diagnosis']
-X = df.drop(['diagnosis', 'Unnamed: 32', 'id'], axis=1)
-# Train-Test Split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
-```
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-#### Training the Model
-```python
-K = []
-training = []
-test = []
-scores = {}
-for k in range(2, 21):
-    clf = KNeighborsClassifier(n_neighbors=k)
-    clf.fit(X_train, y_train)
-    training_score = clf.score(X_train, y_train)
-    test_score = clf.score(X_test, y_test)
-    K.append(k)
-    training.append(training_score)
-    test.append(test_score)
-    scores[k] = [training_score, test_score]
-```
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
-#### Evaluating the Model
-```python
-for keys, values in scores.items():
-    print(keys, ':', values)
-```
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
 
-#### Plotting the Training and Test Scores
-```python
-sns.stripplot(K, training)
-plt.xlabel('Values of k')
-plt.ylabel('Training Score')
-plt.show()
-sns.stripplot(K, test)
-plt.xlabel('Values of k')
-plt.ylabel('Test Score')
-plt.show()
-plt.scatter(K, training, color='k')
-plt.scatter(K, test, color='g')
+y_pred = knn.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.4f}")
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=['Benign', 'Malignant'], yticklabels=['Benign', 'Malignant'])
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion Matrix')
 plt.show()
 ```
 
